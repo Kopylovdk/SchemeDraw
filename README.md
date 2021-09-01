@@ -1,5 +1,7 @@
 # Скрипт рисования схемы электрического щита
 На входе получает данные следующего вида:
+
+```json
 {
 'header_id': 2269,
 'spec': [
@@ -13,7 +15,7 @@
                              {'line': 2, 'line_data': [{'item_id': 2, 'module_name': 'АВ 1п 16А C', 'comment': 'Розеточная группа 1 Линия 1'},
                                                        {'item_id': 3, 'module_name': 'АВ 2п 16А C', 'comment': 'Розеточная группа 1 Линия 2'},
                                                        {'item_id': 4, 'module_name': 'АВ 3п 16А C', 'comment': 'Розеточная группа 1 Линия 3'},
-{'item_id': 4, 'module_name': 'АВ 3п 16А C', 'comment': 'Розеточная группа 1 Линия 3'},
+                                                       {'item_id': 4, 'module_name': 'АВ 3п 16А C', 'comment': 'Розеточная группа 1 Линия 3'},
                                                        {'item_id': 4, 'module_name': 'АВ 3п 16А C', 'comment': 'Розеточная группа 1 Линия 3'},
                                                        {'item_id': 5, 'module_name': 'АВ 4п 16А C', 'comment': 'Розеточная группа 1 Линия 4'}]}]},
     {'group_id': 8, 'data': [{'line': 1, 'line_data': {'item_id': 1, 'module_name': 'УЗО 25А 30мА AC M 2п', 'comment': 'Сан.узел 1'}},
@@ -31,7 +33,7 @@
     {'group_id': 14, 'data': [{'line': 1, 'line_data': {'item_id': 1, 'module_name': 'АВ 1п 16А C', 'comment': 'Резерв 2'}}]}
 ]
 }
-
+```
 На выходе создает картинки в формате .jpg с постраничными изображениями схемы.
 ![](Shema1.jpg)
 ![](Shema2.jpg)
