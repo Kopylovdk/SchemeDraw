@@ -4,7 +4,6 @@ RIGHT_TAB = 60
 UP_TAB = 40
 DOWN_TAB = 20
 # Ширина страницы А4 в px при 75dpi
-# BACK_WIDTH = 10000
 BACK_WIDTH = 877
 BACK_HEIGHT = 620
 # Фон основного листа
