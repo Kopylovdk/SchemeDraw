@@ -19,7 +19,7 @@ def text_split(to_split):
 
 # def next_list(old_back, new_list_number, current_xy_dict, font, buf):
 def next_list(old_back, new_list_number, current_xy_dict, font):
-    old_back.save(f'Scheme{new_list_number}.jpg', quality=100)
+    old_back.save(f'Scheme_{current_xy_dict.get("spec_id")}_list_{new_list_number}.jpg', quality=100)
     # buf[f'list{new_list_number}'] = io.BytesIO()
     # old_back.save(buf[f'list{new_list_number}'], format='JPEG')
     new_list_number += 1
@@ -44,7 +44,7 @@ def schema_save_to_jpg(spec):
     back = Image.new('RGB', (BACK_WIDTH, BACK_HEIGHT), RGB)
     draw = ImageDraw.Draw(back)
     font = ImageFont.truetype('dejavu-sans-condensed.ttf', size=9, encoding='UTF-8')
-    xy_dict = {}
+    xy_dict = {'spec_id': spec.get('header_id')}
     # buf_dict_lists = {}
     list_number = 1
     first_line_step = 15
@@ -103,7 +103,8 @@ def schema_save_to_jpg(spec):
                     xy_dict['third_line'] = {'y': xy_dict.get('Ввод').get('xy_down')[1] + step}
                     # Нижняя горизонтальная черта
                     draw.line(((LEFT_TAB, BACK_HEIGHT - DOWN_TAB - COMMENT_POSITION + UP_TAB),
-                               (BACK_WIDTH - RIGHT_TAB, BACK_HEIGHT - DOWN_TAB - COMMENT_POSITION + UP_TAB)), fill='black')
+                               (BACK_WIDTH - RIGHT_TAB, BACK_HEIGHT - DOWN_TAB - COMMENT_POSITION + UP_TAB)),
+                              fill='black')
                     xy_dict['bottom_line'] = {'y': BACK_HEIGHT - DOWN_TAB - COMMENT_POSITION + UP_TAB}
                 else:
                     if 'АВ' in to_draw['module_name']:
@@ -252,7 +253,7 @@ def schema_save_to_jpg(spec):
                     draw.line((to_draw_line[0], to_draw_line[-1]), fill='black')
                 # Увеличение отступа первой линии на отступ второй линии
                 first_line_step += second_line_step
-    back.save(f'Scheme{list_number}.jpg', quality=100)
+    back.save(f'Scheme_{xy_dict.get("spec_id")}_list_{list_number}.jpg', quality=100)
     # buf_dict_lists[f'list{list_number}'] = io.BytesIO()
     # back.save(buf_dict_lists[f'list{list_number}'], format='JPEG')
     # return buf_dict_lists
