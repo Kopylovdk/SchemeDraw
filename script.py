@@ -65,7 +65,7 @@ def schema_save_to_jpg(spec):
                     back, draw, list_number, first_line_step = next_list(back, list_number, xy_dict, font)
             if line.get('line') == 1:
                 to_draw = line.get('line_data')
-                if line.get('line_data').get('comment') in EXCEPTION:
+                if to_draw.get('comment') in EXCEPTION:
                     continue
                 if to_draw.get('comment') in 'Ввод':
                     if '1п' in to_draw['module_name']:
@@ -87,8 +87,8 @@ def schema_save_to_jpg(spec):
                     xy_dict['params'] = params
                     xy_dict['Ввод'] = {'xy_up': av_up,
                                        'xy_down': av_down}
-                    text = text_split(to_draw.get('module_name'))
-                    text = to_draw.get('comment') + '\n' + text
+
+                    text = to_draw.get('comment') + '\n' + text_split(to_draw.get('module_name'))
                     draw.text((xy_dict.get('Ввод').get('xy_up')[0] + pictures_prop_dict.get('AV')[0],
                                xy_dict.get('Ввод').get('xy_up')[1] - 10),
                               text=text, font=font, fill='black')
