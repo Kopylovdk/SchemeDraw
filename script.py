@@ -3,6 +3,7 @@ from const import BACK_WIDTH, BACK_HEIGHT, RGB, RIGHT_TAB, UP_TAB, LEFT_TAB, EXC
     MODULE_NAME_STEP, pictures_prop_dict, COMMENT_WIDTH
 from pictures import uzo, av
 from test_data import SPEC
+# import io
 
 
 def text_split(to_split):
@@ -13,11 +14,14 @@ def text_split(to_split):
             result += k + '\n'
         else:
             result += k + ' '
-    return result
+    return result if len(result) > 1 else 'ERROR\nno data\nto split'
 
 
+# def next_list(old_back, new_list_number, current_xy_dict, font, buf):
 def next_list(old_back, new_list_number, current_xy_dict, font):
     old_back.save(f'Scheme{new_list_number}.jpg', quality=100)
+    # buf[f'list{new_list_number}'] = io.BytesIO()
+    # old_back.save(buf[f'list{new_list_number}'], format='JPEG')
     new_list_number += 1
     new_back = Image.new('RGB', (BACK_WIDTH, BACK_HEIGHT), RGB)
     new_draw = ImageDraw.Draw(new_back)
@@ -33,14 +37,16 @@ def next_list(old_back, new_list_number, current_xy_dict, font):
                    (BACK_WIDTH - RIGHT_TAB, current_xy_dict.get('bottom_line').get('y'))), fill='black')
     new_list_first_line_step = 15
     return new_back, new_draw, new_list_number, new_list_first_line_step
+    # return new_back, new_draw, new_list_number, new_list_first_line_step, buf
 
 
 def schema_save_to_jpg(spec):
-    list_number = 1
     back = Image.new('RGB', (BACK_WIDTH, BACK_HEIGHT), RGB)
     draw = ImageDraw.Draw(back)
     font = ImageFont.truetype('dejavu-sans-condensed.ttf', size=9, encoding='UTF-8')
     xy_dict = {}
+    # buf_dict_lists = {}
+    list_number = 1
     first_line_step = 15
 
     for group in spec.get('spec'):
@@ -48,14 +54,20 @@ def schema_save_to_jpg(spec):
             # Проверка вхождения блока в границы страницы
             if len(group.get('data')) == 1:
                 if first_line_step + MODULE_NAME_STEP > BACK_WIDTH - RIGHT_TAB:
+                    # back, draw, list_number, first_line_step, buf_dict_lists = next_list(back, list_number, xy_dict,
+                    #                                                                      font, buf_dict_lists)
                     back, draw, list_number, first_line_step = next_list(back, list_number, xy_dict, font)
             elif len(group.get('data')) == 2:
                 if len(group.get('data')[1]['line_data']) == 1:
                     if first_line_step + MODULE_NAME_STEP > BACK_WIDTH - RIGHT_TAB:
+                        # back, draw, list_number, first_line_step, buf_dict_lists = next_list(back, list_number,
+                        # xy_dict, font, buf_dict_lists)
                         back, draw, list_number, first_line_step = next_list(back, list_number, xy_dict, font)
                 elif len(group.get('data')[1].get('line_data')) > 1:
                     if first_line_step + MODULE_NAME_STEP * len(
                             group.get('data')[1].get('line_data')) > BACK_WIDTH - RIGHT_TAB:
+                        # back, draw, list_number, first_line_step, buf_dict_lists = next_list(back, list_number,
+                        # xy_dict, font, buf_dict_lists)
                         back, draw, list_number, first_line_step = next_list(back, list_number, xy_dict, font)
             if line.get('line') == 1:
                 to_draw = line.get('line_data')
@@ -127,7 +139,7 @@ def schema_save_to_jpg(spec):
                         draw.text((av_down[0] - 10, BACK_HEIGHT - DOWN_TAB - COMMENT_LAYER + 5 + UP_TAB),
                                   text=text_split(to_draw['comment']), font=font, fill='black')
                         # Отрисовка линии отделяющей комментарии в случае, когда АВ без УЗО.
-                        if LEFT_TAB + pictures_prop_dict.get('AV')[0] + COMMENT_WIDTH + first_line_step < BACK_WIDTH -\
+                        if LEFT_TAB + pictures_prop_dict.get('AV')[0] + COMMENT_WIDTH + first_line_step < BACK_WIDTH - \
                                 RIGHT_TAB:
                             draw.line(((LEFT_TAB + pictures_prop_dict.get('AV')[0] + COMMENT_WIDTH + first_line_step,
                                         BACK_HEIGHT - DOWN_TAB - COMMENT_LAYER + UP_TAB),
@@ -187,7 +199,7 @@ def schema_save_to_jpg(spec):
                         # Линия от нижнего контакта к описанию
                         draw.line((av_down, (av_down[0], xy_dict.get('bottom_line').get('y'))), fill='black')
                         # Отрисовка линии отделяющей комментарии в случае, когда несколько АВ для УЗО.
-                        if LEFT_TAB + pictures_prop_dict.get('AV')[0] + COMMENT_WIDTH + first_line_step +\
+                        if LEFT_TAB + pictures_prop_dict.get('AV')[0] + COMMENT_WIDTH + first_line_step + \
                                 second_line_step < BACK_WIDTH - RIGHT_TAB:
                             draw.line((
                                 (LEFT_TAB + pictures_prop_dict.get('AV')[
@@ -231,7 +243,7 @@ def schema_save_to_jpg(spec):
                         # Увеличение отступа второй линии
                         second_line_step += MODULE_NAME_STEP + pictures_prop_dict.get('AV')[0] + 20
                         # Отрисовка линии отделяющей комментарии в случае, когда АВ в единичном экземпляре для УЗО.
-                        if LEFT_TAB + pictures_prop_dict.get('AV')[0] + COMMENT_WIDTH + first_line_step < BACK_WIDTH\
+                        if LEFT_TAB + pictures_prop_dict.get('AV')[0] + COMMENT_WIDTH + first_line_step < BACK_WIDTH \
                                 - RIGHT_TAB:
                             draw.line((
                                 (LEFT_TAB + pictures_prop_dict.get('AV')[
@@ -246,9 +258,17 @@ def schema_save_to_jpg(spec):
                     draw.line((to_draw_line[0], to_draw_line[-1]), fill='black')
                 # Увеличение отступа первой линии на отступ второй линии
                 first_line_step += second_line_step
-
     back.save(f'Scheme{list_number}.jpg', quality=100)
+    # buf_dict_lists[f'list{list_number}'] = io.BytesIO()
+    # back.save(buf_dict_lists[f'list{list_number}'], format='JPEG')
+    # return buf_dict_lists
 
 
 if __name__ == "__main__":
     schema_save_to_jpg(SPEC)
+    # buffers = schema_save_to_jpg(SPEC)
+    # for list_name in buffers:
+    #     # print(f'{list_name} - {buffers[list_name]}')
+    #     Image.open(buffers[list_name]).show()
+    #     buffers[list_name].close()
+
