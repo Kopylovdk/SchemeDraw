@@ -45,5 +45,6 @@ buf_dict_lists = {'list{number}':  io.BytesIO(), ....n}
 }
 ```
 На выходе создает картинки в формате .jpg с постраничными изображениями схемы.
-![](Shema1.jpg)
-![](Shema2.jpg)
+![](Scheme1.jpg)
+![](Scheme2.jpg)
+![](Scheme3.jpg)
