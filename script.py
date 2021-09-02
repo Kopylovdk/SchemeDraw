@@ -53,22 +53,16 @@ def schema_save_to_jpg(spec):
         for line in group.get('data'):
             # Проверка вхождения блока в границы страницы
             if len(group.get('data')) == 1:
-                if first_line_step + MODULE_NAME_STEP > BACK_WIDTH - RIGHT_TAB:
+                if LEFT_TAB + first_line_step + MODULE_NAME_STEP > BACK_WIDTH - RIGHT_TAB:
                     # back, draw, list_number, first_line_step, buf_dict_lists = next_list(back, list_number, xy_dict,
                     #                                                                      font, buf_dict_lists)
                     back, draw, list_number, first_line_step = next_list(back, list_number, xy_dict, font)
             elif len(group.get('data')) == 2:
-                if len(group.get('data')[1]['line_data']) == 1:
-                    if first_line_step + MODULE_NAME_STEP > BACK_WIDTH - RIGHT_TAB:
-                        # back, draw, list_number, first_line_step, buf_dict_lists = next_list(back, list_number,
-                        # xy_dict, font, buf_dict_lists)
-                        back, draw, list_number, first_line_step = next_list(back, list_number, xy_dict, font)
-                elif len(group.get('data')[1].get('line_data')) > 1:
-                    if first_line_step + MODULE_NAME_STEP * len(
-                            group.get('data')[1].get('line_data')) > BACK_WIDTH - RIGHT_TAB:
-                        # back, draw, list_number, first_line_step, buf_dict_lists = next_list(back, list_number,
-                        # xy_dict, font, buf_dict_lists)
-                        back, draw, list_number, first_line_step = next_list(back, list_number, xy_dict, font)
+                if LEFT_TAB + first_line_step + MODULE_NAME_STEP * len(
+                        group.get('data')[1].get('line_data')) > BACK_WIDTH - RIGHT_TAB:
+                    # back, draw, list_number, first_line_step, buf_dict_lists = next_list(back, list_number, xy_dict,
+                    #                                                                      font, buf_dict_lists)
+                    back, draw, list_number, first_line_step = next_list(back, list_number, xy_dict, font)
             if line.get('line') == 1:
                 to_draw = line.get('line_data')
                 if line.get('line_data').get('comment') in EXCEPTION:
@@ -271,4 +265,3 @@ if __name__ == "__main__":
     #     # print(f'{list_name} - {buffers[list_name]}')
     #     Image.open(buffers[list_name]).show()
     #     buffers[list_name].close()
-
