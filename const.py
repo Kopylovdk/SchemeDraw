@@ -1,8 +1,13 @@
 # Отступы
 LEFT_TAB = 60
 RIGHT_TAB = 60
-UP_TAB = 40
-DOWN_TAB = 20
+UP_TAB = 60
+
+DOWN_TAB = 0  # регулирует черту комментария, при значении 0 - задается расчетно.
+# При установке значения более 50 комментарий будет заезжать на автоматы второй строки
+
+COMMENT_POSITION = 300
+
 # Ширина страницы А4 в px при 75dpi
 BACK_WIDTH = 877
 BACK_HEIGHT = 620
@@ -10,8 +15,9 @@ BACK_HEIGHT = 620
 RGB = (255, 255, 255)  # Белый
 # Значения, не участвующие в построении схемы
 EXCEPTION = ['УЗИП', 'Противопожарное УЗО', 'Реле напряжения']
+
 MODULE_NAME_STEP = 75
-COMMENT_LAYER = 350
+
 COMMENT_WIDTH = 55
 pictures_prop_dict = {
     # [width, height]
