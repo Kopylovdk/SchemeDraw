@@ -1,6 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 from const import BACK_WIDTH, BACK_HEIGHT, RGB, RIGHT_TAB, UP_TAB, LEFT_TAB, EXCEPTION, DOWN_TAB, COMMENT_POSITION, \
-    MODULE_NAME_STEP, pictures_prop_dict, COMMENT_WIDTH
+    MODULE_NAME_STEP, pictures_prop_dict, COMMENT_WIDTH, COMMENT_HEIGHT
 from pictures import uzo, av
 from test_data import SPEC
 # For buffer use
@@ -138,7 +138,7 @@ def schema_save_to_jpg(spec):
                         # Линия от нижнего контакта до комментария
                         draw.line((av_down, (av_down[0], prop_dict.get('bottom_line').get('y'))), fill='black')
                         # Комментарий в описании
-                        draw.text((av_down[0] - 10, BACK_HEIGHT - DOWN_TAB - COMMENT_POSITION + 5 + UP_TAB),
+                        draw.text((av_down[0] - 12, BACK_HEIGHT - DOWN_TAB - COMMENT_POSITION + 5 + UP_TAB),
                                   text=text_split(to_draw['comment']), font=font, fill='black')
                         # Отрисовка линии отделяющей комментарии в случае, когда АВ без УЗО.
                         if LEFT_TAB + pictures_prop_dict.get('AV')[0] + COMMENT_WIDTH + \
@@ -148,7 +148,7 @@ def schema_save_to_jpg(spec):
                                         BACK_HEIGHT - DOWN_TAB - COMMENT_POSITION + UP_TAB),
                                        (LEFT_TAB + pictures_prop_dict.get('AV')[0] + COMMENT_WIDTH +
                                         prop_dict.get('first_line_step'),
-                                        BACK_HEIGHT - DOWN_TAB - COMMENT_POSITION / 1.2 + UP_TAB)),
+                                        BACK_HEIGHT - DOWN_TAB - COMMENT_POSITION + COMMENT_HEIGHT + UP_TAB)),
                                       fill='black')
                         # Увеличение отступа первой линии
                         prop_dict['first_line_step'] += MODULE_NAME_STEP + pictures_prop_dict.get('AV')[0]
@@ -196,7 +196,8 @@ def schema_save_to_jpg(spec):
                         # Отрисовка АВ второго уровня
                         av_up, av_down = av(draw, x=LEFT_TAB + prop_dict.get('first_line_step') + prop_dict.get(
                             'second_line_step'),
-                                            y=prop_dict.get('third_line').get('y') + 48, p=p)
+                                            y=prop_dict.get('third_line').get('y') + pictures_prop_dict.get('UZO1p')[1],
+                                            p=p)
                         # Описание модуля АВ
                         draw.text((av_up[0] + (pictures_prop_dict.get('AV')[0] / 2), av_up[1] + 5),
                                   text=text_split(i.get('module_name')), font=font, fill='black')
@@ -214,9 +215,9 @@ def schema_save_to_jpg(spec):
                                        (LEFT_TAB + pictures_prop_dict.get('AV')[0] +
                                         COMMENT_WIDTH + prop_dict.get('first_line_step') +
                                         prop_dict.get('second_line_step'), BACK_HEIGHT - DOWN_TAB -
-                                        COMMENT_POSITION / 1.2 + UP_TAB)), fill='black')
+                                        COMMENT_POSITION + COMMENT_HEIGHT + UP_TAB)), fill='black')
                         # Комментарий
-                        draw.text((av_down[0] - 10, BACK_HEIGHT - DOWN_TAB - COMMENT_POSITION + 5 + UP_TAB),
+                        draw.text((av_down[0] - 12, BACK_HEIGHT - DOWN_TAB - COMMENT_POSITION + 5 + UP_TAB),
                                   text=text_split(i['comment']), font=font, fill='black')
                         # Увеличение отступа второй линии
                         prop_dict['second_line_step'] += MODULE_NAME_STEP + pictures_prop_dict.get('AV')[0]
@@ -246,21 +247,20 @@ def schema_save_to_jpg(spec):
                         draw.line((av_down, (av_down[0], prop_dict.get('bottom_line').get('y'))),
                                   fill='black')
                         # Комментарий модуля АВ.
-                        draw.text((av_down[0] - 15, BACK_HEIGHT - DOWN_TAB - COMMENT_POSITION + 5 + UP_TAB),
+                        draw.text((av_down[0] - 12, BACK_HEIGHT - DOWN_TAB - COMMENT_POSITION + 5 + UP_TAB),
                                   text=text_split(to_draw[0]['comment']), font=font, fill='black')
                         # Увеличение отступа второй линии
                         prop_dict['second_line_step'] += MODULE_NAME_STEP + pictures_prop_dict.get('AV')[0] + 20
                         # Отрисовка линии отделяющей комментарии в случае, когда АВ в единичном экземпляре для УЗО.
                         if LEFT_TAB + pictures_prop_dict.get('AV')[0] + COMMENT_WIDTH + prop_dict.get(
-                                'first_line_step') < BACK_WIDTH \
-                                - RIGHT_TAB:
+                                'first_line_step') < BACK_WIDTH - RIGHT_TAB:
                             draw.line((
                                 (LEFT_TAB + pictures_prop_dict.get('AV')[
                                     0] + COMMENT_WIDTH + prop_dict.get('first_line_step'),
                                  BACK_HEIGHT - DOWN_TAB - COMMENT_POSITION + UP_TAB),
                                 (LEFT_TAB + pictures_prop_dict.get('AV')[
                                     0] + COMMENT_WIDTH + prop_dict.get('first_line_step'),
-                                 BACK_HEIGHT - DOWN_TAB - COMMENT_POSITION / 1.2 + UP_TAB)),
+                                 BACK_HEIGHT - DOWN_TAB - COMMENT_POSITION + COMMENT_HEIGHT + UP_TAB)),
                                 fill='black')
                 # Отрисовка линии соединяющей контакты второй линии АВ с УЗО
                 if to_draw_line:
