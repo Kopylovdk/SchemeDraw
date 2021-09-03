@@ -18,7 +18,14 @@ def text_split(to_split):
     return result if len(result) > 1 else 'ERROR\nno data\nto split'
 
 
-def next_list(old_back, current_prop_dict, font):
+def new_list():
+    back = Image.new('RGB', (BACK_WIDTH, BACK_HEIGHT), RGB)
+    draw = ImageDraw.Draw(back)
+    font = ImageFont.truetype('dejavu-sans-condensed.ttf', size=9, encoding='UTF-8')
+    return back, draw, font
+
+
+def next_list(old_back, current_prop_dict):
     old_back.save(f'Scheme_{current_prop_dict.get("spec_id")}_list_{current_prop_dict.get("list_number")}.jpg',
                   quality=100)
     current_prop_dict.get('list_names').append(f'Scheme_{current_prop_dict.get("spec_id")}'
@@ -27,8 +34,8 @@ def next_list(old_back, current_prop_dict, font):
     # current_prop_dict['buffers'][f'list{current_prop_dict.get("list_number")}'] = io.BytesIO()
     # old_back.save(current_prop_dict['buffers'][f'list{current_prop_dict.get("list_number")}'], format='JPEG')
     current_prop_dict['list_number'] += 1
-    new_back = Image.new('RGB', (BACK_WIDTH, BACK_HEIGHT), RGB)
-    new_draw = ImageDraw.Draw(new_back)
+    new_back, new_draw, font = new_list()
+
     new_list_step = 0
     for _ in range(3):
         new_draw.text((LEFT_TAB, current_prop_dict.get('Ввод').get('xy_down')[1] - 10 + new_list_step),
@@ -44,9 +51,8 @@ def next_list(old_back, current_prop_dict, font):
 
 
 def schema_save_to_jpg(spec):
-    back = Image.new('RGB', (BACK_WIDTH, BACK_HEIGHT), RGB)
-    draw = ImageDraw.Draw(back)
-    font = ImageFont.truetype('dejavu-sans-condensed.ttf', size=9, encoding='UTF-8')
+    back, draw, font = new_list()
+
     prop_dict = {'spec_id': spec.get('header_id'),
                  'list_number': 1,
                  # 'buffers': {},  # For use with buffer BytesIO()
@@ -58,11 +64,11 @@ def schema_save_to_jpg(spec):
             # Проверка вхождения блока в границы страницы
             if len(group.get('data')) == 1:
                 if LEFT_TAB + prop_dict.get('first_line_step') + MODULE_NAME_STEP > BACK_WIDTH - RIGHT_TAB:
-                    back, draw, prop_dict = next_list(back, prop_dict, font)
+                    back, draw, prop_dict = next_list(back, prop_dict)
             elif len(group.get('data')) == 2:
                 if LEFT_TAB + prop_dict.get('first_line_step') + MODULE_NAME_STEP * len(
                         group.get('data')[1].get('line_data')) > BACK_WIDTH - RIGHT_TAB:
-                    back, draw, prop_dict = next_list(back, prop_dict, font)
+                    back, draw, prop_dict = next_list(back, prop_dict)
             if line.get('line') == 1:
                 to_draw = line.get('line_data')
                 if to_draw.get('comment') in EXCEPTION:
