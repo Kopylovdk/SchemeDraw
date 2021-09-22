@@ -80,38 +80,50 @@
 #     ]
 # }
 
+#     line_id  header_id            module_name  qty                      comment
+# 0      4925       2269            АВ 2п 50А C    1                         Ввод
+# 1      4924       2269           УЗИП 2п 20кА    1                         УЗИП
+# 2      4923       2269  УЗО 50А 300мА AC M 2п    1          Противопожарное УЗО
+# 3      4922       2269              РН 2п 63А    1              Реле напряжения
+# 4      4921       2269            АВ 1п 10А C    1           Освещение группа 1
+# 5      4920       2269            АВ 1п 10А C    1           Освещение группа 2
+# 6      4919       2269   УЗО 50А 30мА AC M 2п    1          Розеточная группа 1
+# 7      4918       2269            АВ 2п 16А C    1  Розеточная группа 1 Линия 1
+# 8      4917       2269            АВ 2п 16А C    1  Розеточная группа 1 Линия 2
+# 9      4916       2269   УЗО 50А 30мА AC M 2п    1          Розеточная группа 2
+# 10     4915       2269            АВ 2п 16А C    1  Розеточная группа 2 Линия 1
+# 11     4914       2269            АВ 2п 16А C    1  Розеточная группа 2 Линия 2
+# 12     4913       2269   УЗО 50А 30мА AC M 2п    1                   Сан.узел 1
+# 13     4912       2269            АВ 2п 16А C    1           Сан.узел 1 Линия 1
 
 SPEC = {
 'header_id': 2269,
 'spec': [
-    {'group_id': 1, 'data': [{'line': 1, 'line_data': {'item_id': 1, 'module_name': 'АВ 4п 25А C', 'comment': 'Ввод'}}]},
-    {'group_id': 2, 'data': [{'line': 1, 'line_data': {'item_id': 1, 'module_name': 'УЗИП 4п 20кА', 'comment': 'УЗИП'}}]},
-    {'group_id': 3, 'data': [{'line': 1, 'line_data': {'item_id': 1, 'module_name': 'УЗО 25А 300мА AC M 4п', 'comment': 'Противопожарное УЗО'}}]},
-    {'group_id': 4, 'data': [{'line': 1, 'line_data': {'item_id': 1, 'module_name': 'РН 3п 63А', 'comment': 'Реле напряжения'}}]},
-    {'group_id': 5, 'data': [{'line': 1, 'line_data': {'item_id': 1, 'module_name': 'АВ 1п 10А C', 'comment': 'Освещение группа 1'}}]},
-    {'group_id': 6, 'data': [{'line': 1, 'line_data': {'item_id': 1, 'module_name': 'АВ 1п 10А C', 'comment': 'Освещение группа 2'}}]},
-    {'group_id': 7, 'data': [{'line': 1, 'line_data': {'item_id': 1, 'module_name': 'УЗО 25А 30мА AC M 4п', 'comment': 'Розеточная группа 1'}},
-                             {'line': 2, 'line_data': [{'item_id': 2, 'module_name': 'АВ 1п 16А C', 'comment': 'Розеточная группа 1 Линия 1'},
-                                                       {'item_id': 3, 'module_name': 'АВ 2п 16А C', 'comment': 'Розеточная группа 1 Линия 2'},
-                                                       {'item_id': 4, 'module_name': 'АВ 3п 16А C', 'comment': 'Розеточная группа 1 Линия 3'},
-{'item_id': 4, 'module_name': 'АВ 3п 16А C', 'comment': 'Розеточная группа 1 Линия 3'},
-                                                       {'item_id': 4, 'module_name': 'АВ 3п 16А C', 'comment': 'Розеточная группа 1 Линия 3'},
-                                                       {'item_id': 5, 'module_name': 'АВ 4п 16А C', 'comment': 'Розеточная группа 1 Линия 4'}]}]},
-    {'group_id': 8, 'data': [{'line': 1, 'line_data': {'item_id': 1, 'module_name': 'УЗО 25А 30мА AC M 2п', 'comment': 'Сан.узел 1'}},
-                             {'line': 2, 'line_data': [{'item_id': 2, 'module_name': 'АВ 2п 16А C', 'comment': 'Сан.узел 1 Линия 1'},
-                                                       {'item_id': 2, 'module_name': 'АВ 2п 16А C', 'comment': 'Сан.узел 1 Линия 1'},
-                                                       {'item_id': 3, 'module_name': 'АВ 2п 16А C', 'comment': 'Сан.узел 1 Линия 2'}]}]},
-    {'group_id': 9, 'data': [{'line': 1, 'line_data': {'item_id': 1, 'module_name': 'УЗО 25А 30мА AC M 2п', 'comment': 'Духовой шкаф'}},
-                             {'line': 2, 'line_data': [{'item_id': 2, 'module_name': 'АВ 2п 16А C', 'comment': 'Духовой шкаф'}]}]},
-    {'group_id': 10, 'data': [{'line': 1, 'line_data': {'item_id': 1, 'module_name': 'УЗО 25А 30мА AC M 1п', 'comment': 'Варочная поверхность'}},
-                              {'line': 2, 'line_data': [{'item_id': 2, 'module_name': 'АВ 2п 16А C', 'comment': 'Варочная поверхность'}]}]},
-    {'group_id': 11, 'data': [{'line': 1, 'line_data': {'item_id': 1, 'module_name': 'УЗО 25А 30мА AC M 2п', 'comment': 'Посудомоечная машина'}},
-                              {'line': 2, 'line_data': [{'item_id': 2, 'module_name': 'АВ 2п 16А C', 'comment': 'Посудомоечная машина'}]}]},
-    {'group_id': 12, 'data': [{'line': 1, 'line_data': {'item_id': 1, 'module_name': 'УЗО 25А 30мА AC M 2п', 'comment': 'Наружное электроснабжение'}},
-                              {'line': 2, 'line_data': [{'item_id': 2, 'module_name': 'АВ 2п 16А C', 'comment': 'Наружное электроснабжение'},
-                                                        {'item_id': 2, 'module_name': 'АВ 2п 16А C', 'comment': 'Наружное электроснабжение'},
-                                                        {'item_id': 2, 'module_name': 'АВ 2п 16А C', 'comment': 'Наружное электроснабжение'}]}]},
-    {'group_id': 13, 'data': [{'line': 1, 'line_data': {'item_id': 1, 'module_name': 'АВ 1п 16А C', 'comment': 'Резерв 1'}}]},
-    {'group_id': 14, 'data': [{'line': 1, 'line_data': {'item_id': 1, 'module_name': 'АВ 1п 16А C', 'comment': 'Резерв 2'}}]}
+    {'group_id': 1, 'data': [{'line': 1, 'line_data': {'module_name': 'АВ 4п 25А C', 'comment': 'Ввод'}}]},
+    {'group_id': 5, 'data': [{'line': 1, 'line_data': {'module_name': 'АВ 1п 10А C', 'comment': 'Освещение группа 1'}}]},
+    {'group_id': 6, 'data': [{'line': 1, 'line_data': {'module_name': 'АВ 1п 10А C', 'comment': 'Освещение группа 2'}}]},
+    {'group_id': 7, 'data': [{'line': 1, 'line_data': {'module_name': 'УЗО 25А 30мА AC M 4п', 'comment': 'Розеточная группа 1'}},
+                             {'line': 2, 'line_data': [{'module_name': 'АВ 1п 16А C', 'comment': 'Розеточная группа 1 Линия 1'},
+                                                       {'module_name': 'АВ 2п 16А C', 'comment': 'Розеточная группа 1 Линия 2'},
+                                                       {'module_name': 'АВ 3п 16А C', 'comment': 'Розеточная группа 1 Линия 3'},
+                                                       {'module_name': 'АВ 4п 16А C', 'comment': 'Розеточная группа 1 Линия 4'}]}]},
+    {'group_id': 8, 'data': [{'line': 1, 'line_data': {'module_name': 'УЗО 25А 30мА AC M 2п', 'comment': 'Сан.узел 1'}},
+                             {'line': 2, 'line_data': [{'module_name': 'АВ 2п 16А C', 'comment': 'Сан.узел 1 Линия 1'},
+                                                       {'module_name': 'АВ 2п 16А C', 'comment': 'Сан.узел 1 Линия 1'},
+                                                       {'module_name': 'АВ 2п 16А C', 'comment': 'Сан.узел 1 Линия 2'}]}]},
+    {'group_id': 9, 'data': [{'line': 1, 'line_data': {'module_name': 'УЗО 25А 30мА AC M 2п', 'comment': 'Духовой шкаф'}},
+                             {'line': 2, 'line_data': [{'module_name': 'АВ 2п 16А C', 'comment': 'Духовой шкаф'}]}]},
+    {'group_id': 10, 'data': [{'line': 1, 'line_data': {'module_name': 'УЗО 25А 30мА AC M 1п', 'comment': 'Варочная поверхность'}},
+                              {'line': 2, 'line_data': [{'module_name': 'АВ 2п 16А C', 'comment': 'Варочная поверхность'}]}]},
+    {'group_id': 11, 'data': [{'line': 1, 'line_data': {'module_name': 'УЗО 25А 30мА AC M 2п', 'comment': 'Посудомоечная машина'}},
+                              {'line': 2, 'line_data': [{'module_name': 'АВ 2п 16А C', 'comment': 'Посудомоечная машина'}]}]},
+    {'group_id': 12, 'data': [{'line': 1, 'line_data': {'module_name': 'УЗО 25А 30мА AC M 2п', 'comment': 'Наружное электроснабжение'}},
+                              {'line': 2, 'line_data': [{'module_name': 'АВ 2п 16А C', 'comment': 'Наружное электроснабжение'},
+                                                        {'module_name': 'АВ 2п 16А C', 'comment': 'Наружное электроснабжение'},
+                                                        {'module_name': 'АВ 2п 16А C', 'comment': 'Наружное электроснабжение'}]}]},
+    {'group_id': 13, 'data': [{'line': 1, 'line_data': {'module_name': 'АВ 1п 16А C', 'comment': 'Резерв 1'}}]},
+    {'group_id': 14, 'data': [{'line': 1, 'line_data': {'module_name': 'АВ 1п 16А C', 'comment': 'Резерв 2'}}]}
 ]
 }
+
+
