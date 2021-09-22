@@ -1,8 +1,8 @@
 from PIL import Image, ImageDraw, ImageFont
-from const import BACK_WIDTH, BACK_HEIGHT, RGB, RIGHT_TAB, UP_TAB, LEFT_TAB, EXCEPTION, DOWN_TAB, COMMENT_POSITION, \
+from const import BACK_WIDTH, BACK_HEIGHT, RGB, RIGHT_TAB, UP_TAB, LEFT_TAB, DOWN_TAB, COMMENT_POSITION, \
     MODULE_NAME_STEP, pictures_prop_dict, COMMENT_WIDTH, COMMENT_HEIGHT
 from pictures import uzo, av
-from test_data import SPEC
+from data_parcer import sql_data_parser
 # For buffer use
 # import io
 
@@ -50,7 +50,8 @@ def next_list(old_back, current_prop_dict):
     return new_back, new_draw, current_prop_dict
 
 
-def schema_save_to_jpg(spec):
+def schema_save_to_jpg(spec_id):
+    spec = sql_data_parser(spec_id)
     back, draw, font = new_list()
 
     prop_dict = {'spec_id': spec.get('header_id'),
@@ -71,8 +72,6 @@ def schema_save_to_jpg(spec):
                     back, draw, prop_dict = next_list(back, prop_dict)
             if line.get('line') == 1:
                 to_draw = line.get('line_data')
-                if to_draw.get('comment') in EXCEPTION:
-                    continue
                 if to_draw.get('comment') in 'Ввод':
                     if '1п' in to_draw['module_name']:
                         p = 1
@@ -279,7 +278,7 @@ def schema_save_to_jpg(spec):
 
 if __name__ == "__main__":
     # names, buffers = schema_save_to_jpg(SPEC)
-    names = schema_save_to_jpg(SPEC)
+    names = schema_save_to_jpg(2269)
     # for list_name in buffers:
     #     print(f'{list_name} - {buffers[list_name]}')
     #     Image.open(buffers[list_name]).show()
