@@ -4,7 +4,7 @@ from const import BACK_WIDTH, BACK_HEIGHT, RGB, RIGHT_TAB, UP_TAB, LEFT_TAB, DOW
 from pictures import uzo, av
 from data_parcer import sql_data_parser
 # For buffer use
-# import io
+import io
 
 
 def text_split(to_split):
@@ -26,13 +26,13 @@ def new_list():
 
 
 def next_list(old_back, current_prop_dict):
-    old_back.save(f'Scheme_{current_prop_dict.get("spec_id")}_list_{current_prop_dict.get("list_number")}.jpg',
-                  quality=100)
-    current_prop_dict.get('list_names').append(f'Scheme_{current_prop_dict.get("spec_id")}'
-                                               f'_list_{current_prop_dict.get("list_number")}.jpg')
+    # old_back.save(f'Scheme_{current_prop_dict.get("spec_id")}_list_{current_prop_dict.get("list_number")}.jpg',
+    #               quality=100)
+    # current_prop_dict.get('list_names').append(f'Scheme_{current_prop_dict.get("spec_id")}'
+    #                                            f'_list_{current_prop_dict.get("list_number")}.jpg')
     # Save to buffer BytesIO()
-    # current_prop_dict['buffers'][f'list{current_prop_dict.get("list_number")}'] = io.BytesIO()
-    # old_back.save(current_prop_dict['buffers'][f'list{current_prop_dict.get("list_number")}'], format='JPEG')
+    current_prop_dict['buffers'][f'list{current_prop_dict.get("list_number")}'] = io.BytesIO()
+    old_back.save(current_prop_dict['buffers'][f'list{current_prop_dict.get("list_number")}'], format='JPEG')
     current_prop_dict['list_number'] += 1
     new_back, new_draw, font = new_list()
 
@@ -56,8 +56,8 @@ def schema_save_to_jpg(spec_id):
 
     prop_dict = {'spec_id': spec.get('header_id'),
                  'list_number': 1,
-                 # 'buffers': {},  # For use with buffer BytesIO()
-                 'list_names': [],
+                 'buffers': {},  # For use with buffer BytesIO()
+                 # 'list_names': [],
                  'first_line_step': 15}
 
     for group in spec.get('spec'):
@@ -266,19 +266,18 @@ def schema_save_to_jpg(spec_id):
                     draw.line((to_draw_line[0], to_draw_line[-1]), fill='black')
                 # Увеличение отступа первой линии на отступ второй линии
                 prop_dict['first_line_step'] += prop_dict.get('second_line_step')
-    back.save(f'Scheme_{prop_dict.get("spec_id")}_list_{prop_dict.get("list_number")}.jpg', quality=100)
-    prop_dict.get('list_names').append(f'Scheme_{prop_dict.get("spec_id")}'
-                                       f'_list_{prop_dict.get("list_number")}.jpg')
+    # back.save(f'Scheme_{prop_dict.get("spec_id")}_list_{prop_dict.get("list_number")}.jpg', quality=100)
+    # prop_dict.get('list_names').append(f'Scheme_{prop_dict.get("spec_id")}'
+    #                                    f'_list_{prop_dict.get("list_number")}.jpg')
     # Save to buffer BytesIO, if uncomment - change RETURN
-    # prop_dict['buffers'][f'list{prop_dict.get("list_number")}'] = io.BytesIO()
-    # back.save(prop_dict['buffers'][f'list{prop_dict.get("list_number")}'], format='JPEG')
-    # return prop_dict.get('list_names'), prop_dict.get('buffers')
-    return prop_dict.get('list_names')
+    prop_dict['buffers'][f'list{prop_dict.get("list_number")}'] = io.BytesIO()
+    back.save(prop_dict['buffers'][f'list{prop_dict.get("list_number")}'], format='JPEG')
+    return prop_dict.get('buffers')
+    # return prop_dict.get('list_names')
 
 
 if __name__ == "__main__":
-    # names, buffers = schema_save_to_jpg(2269)
-    names = schema_save_to_jpg(2269)
+    names = schema_save_to_jpg(2274)
     # for list_name in buffers:
     #     print(f'{list_name} - {buffers[list_name]}')
     #     Image.open(buffers[list_name]).show()
