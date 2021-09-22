@@ -18,7 +18,6 @@ def sql_data_parser(spec_id):
             order by line_id desc;"""
 
     pars_data = DataFrame(read_sql_query(sql, conn))
-
     result = {'header_id': pars_data.iloc[0]['header_id'],
               'spec': []}
     group_id = 0
@@ -55,10 +54,9 @@ def sql_data_parser(spec_id):
             if second_line.get('line_data'):
                 group_to_insert['data'].append(second_line)
             group_id += 1
+        else:
+            group_to_insert['data'].append(first_line)
         i += 1
         if group_to_insert['data']:
             result.get('spec').append(group_to_insert)
-    print(pars_data)
-    print(result)
     return result
-
