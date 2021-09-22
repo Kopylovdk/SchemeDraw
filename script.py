@@ -1,5 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont
-from const import BACK_WIDTH, BACK_HEIGHT, RGB, RIGHT_TAB, UP_TAB, LEFT_TAB, DOWN_TAB, COMMENT_POSITION, \
+from const import BACK_WIDTH, BACK_HEIGHT, RGB, RIGHT_TAB, UP_TAB, LEFT_TAB, DOWN_TAB, COMMENT_POSITION, FONT_PATH,\
     MODULE_NAME_STEP, pictures_prop_dict, COMMENT_WIDTH, COMMENT_HEIGHT
 from pictures import uzo, av
 from data_parcer import sql_data_parser
@@ -21,7 +21,7 @@ def text_split(to_split):
 def new_list():
     back = Image.new('RGB', (BACK_WIDTH, BACK_HEIGHT), RGB)
     draw = ImageDraw.Draw(back)
-    font = ImageFont.truetype('dejavu-sans-condensed.ttf', size=9, encoding='UTF-8')
+    font = ImageFont.truetype(f'{FONT_PATH}dejavu-sans-condensed.ttf', size=9, encoding='UTF-8')
     return back, draw, font
 
 
@@ -277,7 +277,7 @@ def schema_save_to_jpg(spec_id):
 
 
 if __name__ == "__main__":
-    # names, buffers = schema_save_to_jpg(SPEC)
+    # names, buffers = schema_save_to_jpg(2269)
     names = schema_save_to_jpg(2269)
     # for list_name in buffers:
     #     print(f'{list_name} - {buffers[list_name]}')
