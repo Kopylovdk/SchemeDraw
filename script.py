@@ -1,8 +1,8 @@
 from PIL import Image, ImageDraw, ImageFont
-from const import BACK_WIDTH, BACK_HEIGHT, RGB, RIGHT_TAB, UP_TAB, LEFT_TAB, DOWN_TAB, COMMENT_POSITION, FONT_PATH,\
+from app.spec2pdf.const import BACK_WIDTH, BACK_HEIGHT, RGB, RIGHT_TAB, UP_TAB, LEFT_TAB, DOWN_TAB, COMMENT_POSITION, FONT_PATH,\
     MODULE_NAME_STEP, pictures_prop_dict, COMMENT_WIDTH, COMMENT_HEIGHT
-from pictures import uzo, av
-from data_parcer import sql_data_parser
+from app.spec2pdf.pictures import uzo, av
+from app.spec2pdf.data_parcer import sql_data_parser
 # For buffer use
 import io
 
@@ -32,7 +32,7 @@ def next_list(old_back, current_prop_dict):
     #                                            f'_list_{current_prop_dict.get("list_number")}.jpg')
     # Save to buffer BytesIO()
     current_prop_dict['buffers'][f'list{current_prop_dict.get("list_number")}'] = io.BytesIO()
-    old_back.save(current_prop_dict['buffers'][f'list{current_prop_dict.get("list_number")}'], format='JPEG')
+    old_back.save(current_prop_dict['buffers'][f'list{current_prop_dict.get("list_number")}'], format='PDF')
     current_prop_dict['list_number'] += 1
     new_back, new_draw, font = new_list()
 
@@ -271,15 +271,15 @@ def schema_save_to_jpg(spec_id):
     #                                    f'_list_{prop_dict.get("list_number")}.jpg')
     # Save to buffer BytesIO, if uncomment - change RETURN
     prop_dict['buffers'][f'list{prop_dict.get("list_number")}'] = io.BytesIO()
-    back.save(prop_dict['buffers'][f'list{prop_dict.get("list_number")}'], format='JPEG')
+    back.save(prop_dict['buffers'][f'list{prop_dict.get("list_number")}'], format='PDF')
     return prop_dict.get('buffers')
     # return prop_dict.get('list_names')
 
 
 if __name__ == "__main__":
-    names = schema_save_to_jpg(2274)
+    names_test = schema_save_to_jpg(2274)
     # for list_name in buffers:
     #     print(f'{list_name} - {buffers[list_name]}')
     #     Image.open(buffers[list_name]).show()
     #     buffers[list_name].close()
-    print(names)
+    print(f'names = {names_test}')

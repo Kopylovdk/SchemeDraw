@@ -8,7 +8,7 @@ BACK_HEIGHT = 620
 # Фон основного листа
 RGB = (255, 255, 255)  # Белый
 
-FONT_PATH = '/app/scripts/spec2pdf/'
+FONT_PATH = '/app/app/spec2pdf/'
 
 # Отступы
 LEFT_TAB = 60

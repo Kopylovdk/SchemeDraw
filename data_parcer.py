@@ -1,6 +1,6 @@
-from pandas import read_sql_query, DataFrame
+from pandas import read_sql_query, DataFrame, read_csv
 import psycopg2
-from const import EXCEPTION
+from app.spec2pdf.const import EXCEPTION
 
 
 def sql_data_parser(spec_id):
@@ -18,6 +18,7 @@ def sql_data_parser(spec_id):
             order by line_id desc;"""
 
     pars_data = DataFrame(read_sql_query(sql, conn))
+    # print(f'{pars_data=}')
     result = {'header_id': pars_data.iloc[0]['header_id'],
               'spec': []}
     group_id = 0
@@ -60,3 +61,8 @@ def sql_data_parser(spec_id):
         if group_to_insert['data']:
             result.get('spec').append(group_to_insert)
     return result
+
+
+if __name__ == "__main__":
+    result_test = sql_data_parser(2274)
+    print(f'result = {result_test}')
