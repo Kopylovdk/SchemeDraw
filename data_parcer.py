@@ -18,7 +18,7 @@ def sql_data_parser(spec_id):
             order by line_id desc;"""
 
     pars_data = DataFrame(read_sql_query(sql, conn))
-    # print(f'{pars_data=}')
+    print(f'pars_data = {pars_data}')
     result = {'header_id': pars_data.iloc[0]['header_id'],
               'spec': []}
     group_id = 0
@@ -37,9 +37,8 @@ def sql_data_parser(spec_id):
             raw_cnt = 0
             for j in range(i, spec_len):
                 if comment in EXCEPTION:
-                    j += 1
                     continue
-                elif j + 1 == spec_len:
+                elif j + 1 == spec_len - 1:
                     second_line.get('line_data').append({'module_name': pars_data.iloc[j + 1]['module_name'],
                                                          'comment': pars_data.iloc[j + 1]['comment']})
                     raw_cnt += 1
@@ -57,12 +56,13 @@ def sql_data_parser(spec_id):
             group_id += 1
         else:
             group_to_insert['data'].append(first_line)
-        i += 1
         if group_to_insert['data']:
             result.get('spec').append(group_to_insert)
+        print(f'Step = {i}, Result = {result}')
+        i += 1
     return result
 
 
 if __name__ == "__main__":
-    result_test = sql_data_parser(2274)
+    result_test = sql_data_parser(2292)
     print(f'result = {result_test}')
